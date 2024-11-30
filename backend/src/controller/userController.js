@@ -37,7 +37,6 @@ const registerCtrl = async (req, res) => {
 
 const loginCtrl = async (req, res) => {
     const { username, password } = req.body
-    // console.log(username)
 
     const user = await User.findOne({ username })
 
