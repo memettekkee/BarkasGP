@@ -1,0 +1,39 @@
+<<utama>>
+
+
+_id
+ObjectId('674b30f47c83a7c6d5cf4ca0')
+msg_id
+"358275d4-35f2-4f46-985a-2430a6b389a9"
+chat_id
+"1bffa853-8c9f-4167-b1e3-a3ace3d67622"
+sender_id
+"ba433b15-40a4-45fb-b872-34b46aa42a3a"
+message
+"jadi striker yg becus bejir"
+createdAt
+2024-11-30T15:36:20.218+00:00
+__v
+0
+
+di object ini tambahin username nya si sender_id (ini ada pada sendMsgCtrl)
+
+<<opsional>>
+
+_id
+ObjectId('674b28a49453c24b4d28e01a')
+chat_id
+"d8d514d9-dc33-424d-ab02-393f10eda623"
+
+participants
+Array (2)
+0
+"8d2f6f64-53af-41d3-8d48-f394b4b7a632"
+1
+"c248ef10-2746-45fb-853e-f238ddc63cff"
+createdAt
+2024-11-30T15:00:52.639+00:00
+__v
+0
+
+klo bisa didalam participants itu ada username juga biar ga ribet (startChatCtrl)

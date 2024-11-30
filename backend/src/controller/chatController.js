@@ -56,6 +56,8 @@ const sendMsgCtrl = async (req, res) => {
     const { your_user_id, message } = req.body
     const msg_id = crypto.randomUUID()
 
+    // console.log(your_user_id)
+
     const newMsg = {
         msg_id: msg_id,
         chat_id: chat_id,
@@ -131,7 +133,43 @@ const getAllChatSessionCtrl = async (req, res) => {
 }
 
 const getAllChatMsgCtrl = async (req, res) => {
-    const {  }
+    const { chat_id, your_user_id } = req.params
+    // const { your_user_id } = req.body
+
+    console.log(your_user_id)
+    console.log(chat_id)
+
+    try {
+        const chat = await Chat.findOne({
+            chat_id: chat_id,
+            participants: { $in: [your_user_id] }
+        });
+
+        // if (!chat) {
+        //     res.status(404).json({
+        //         error: true,
+        //         message: 'Sesi chat gaada !'
+        //     });
+        // }
+
+        const msg = await Message.find({
+            chat_id: chat_id
+        })
+        .sort({ createdAt: 1 });
+
+        res.status(200).json({
+            error: false,
+            message: 'Semua isi sesi chat berhasil di tampilkan !',
+            participants: chat.participants,
+            messages: msg
+        });
+
+    } catch (error) {
+        res.status(404).json({
+            error: true,
+            message: error.message
+        });
+    }
 }
 
-module.exports = { startChatCtrl, sendMsgCtrl, getAllChatSessionCtrl }
+module.exports = { startChatCtrl, sendMsgCtrl, getAllChatSessionCtrl, getAllChatMsgCtrl }
