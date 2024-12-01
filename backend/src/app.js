@@ -4,6 +4,7 @@ require("dotenv").config();
 // const userRoute = require('./routes/userRoutes')
 const userRoute = require('./routes/userRoutes')
 const chatRoute = require('./routes/chatRoutes')
+const saleRoute = require('./routes/saleRoutes')
 
 const connectDB = require('./database/connectDB')
 const app = express()
@@ -25,6 +26,7 @@ connectDB();
 
 app.use('/', userRoute)
 app.use('/chat', chatRoute)
+app.use('/sale', saleRoute)
 
 app.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`);

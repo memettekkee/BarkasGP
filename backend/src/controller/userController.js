@@ -4,6 +4,8 @@ const crypto = require('crypto');
 require('dotenv').config()
 
 const User = require('../model/userModel')
+const Sale = require('../model/saleModel')
+const Chat = require('../model/chatModel')
 
 const registerCtrl = async (req, res) => {
     const { username, password, nama_lengkap, email } = req.body;
@@ -121,4 +123,37 @@ const getUserbyidCtrl = async (req, res) => {
     }
 }
 
-module.exports = { registerCtrl, loginCtrl, getUserbyidCtrl, updateProfilCtrl } 
+const getDashboardById = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const user = await User.findOne({ user_id: id }).select('username');
+
+        if (!user) {
+            return res.status(404).json({ error: 'Pengguna tidak ditemukan.' });
+        }
+
+        const totalPost = await Sale.countDocuments({ user_id: id })
+        const totalChatSession = await Chat.countDocuments({
+            $or: [
+                { participants: { $elemMatch: { your_user_id: id } } },
+                { participants: { $elemMatch: { other_user_id: id } } }
+            ]
+        })
+
+        return res.status(200).json({
+            error: false,
+            message: 'Data dashboard ditampilkan !',
+            username: user.username,
+            totalPost: totalPost,
+            totalChatSession: totalChatSession
+        });
+
+    } catch(error) {
+        return res.status(500).json({
+            message: e.message,
+        });
+    }
+}
+
+module.exports = { registerCtrl, loginCtrl, getUserbyidCtrl, updateProfilCtrl, getDashboardById } 
