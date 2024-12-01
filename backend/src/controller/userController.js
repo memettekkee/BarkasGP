@@ -91,14 +91,14 @@ const updateProfilCtrl = async (req, res) => {
             { new: true }
         )
 
-        res.status(200).json({
+        return res.status(200).json({
             error: false,
             message: 'Data anda berhasil diubah',
             user: updatedUser
         });
 
     } catch (error) {
-        res.status(404).json({
+        return res.status(404).json({
             error: true,
             message: error.message
         });
