@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const ParticipantSchema = new mongoose.Schema({
-    your_user_id: { type: String }, // ID user Anda
-    your_name: { type: String }, // Nama user Anda
-    other_user_id: { type: String }, // ID user lain
-    other_name: { type: String } // Nama user lain
+    your_user_id: { type: String }, 
+    your_name: { type: String }, 
+    other_user_id: { type: String }, 
+    other_name: { type: String } 
 });
 
 const ChatSchema = new mongoose.Schema({
@@ -12,7 +12,7 @@ const ChatSchema = new mongoose.Schema({
     participants: [ParticipantSchema],
     createdAt: { 
         type: Date, 
-        default: Date.now, // Otomatis diset waktu saat pesan dibuat
+        default: Date.now, 
     },
 })
 

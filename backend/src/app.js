@@ -1,7 +1,6 @@
 const express = require('express')
 require("dotenv").config();
 
-// const userRoute = require('./routes/userRoutes')
 const userRoute = require('./routes/userRoutes')
 const chatRoute = require('./routes/chatRoutes')
 const saleRoute = require('./routes/saleRoutes')

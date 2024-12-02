@@ -29,7 +29,6 @@ const startChatCtrl = async (req, res) => {
 
             chat = new Chat({
                 chat_id: chat_id,
-                // participants: [your_user_id, other_user_id],
                 participants: [{
                     your_user_id: your_user_id,
                     your_name: yourFullname.nama_lengkap
@@ -40,8 +39,6 @@ const startChatCtrl = async (req, res) => {
             })
             await chat.save()
         }
-
-        // console.log(yourFullname.nama_lengkap)
 
         const newMsg = {
             msg_id: msg_id,
@@ -75,8 +72,6 @@ const sendMsgCtrl = async (req, res) => {
     const msg_id = crypto.randomUUID()
 
     const user = await User.findOne({ user_id: your_user_id })
-
-    // console.log(user)
 
     const newMsg = {
         msg_id: msg_id,
@@ -136,7 +131,6 @@ const getAllChatSessionCtrl = async (req, res) => {
             });
         }
 
-        // console.log(chats)
          // Ambil detail pengguna untuk setiap participant
          const populatedChats = await Promise.all(
             chats.map(async (chat) => {
@@ -155,8 +149,6 @@ const getAllChatSessionCtrl = async (req, res) => {
             })
         );
 
-        // console.log(populatedChats)
-
         return res.status(200).json({
             error: false,
             message: 'Semua sesi chat berhasil di tampilkan !',
@@ -173,10 +165,6 @@ const getAllChatSessionCtrl = async (req, res) => {
 
 const getAllChatMsgCtrl = async (req, res) => {
     const { chat_id, your_user_id } = req.params
-    // const { your_user_id } = req.body
-
-    console.log(your_user_id)
-    console.log(chat_id)
 
     try {
         const chat = await Chat.findOne({
