@@ -9,6 +9,7 @@ const Chat = require('../model/chatModel')
 
 const registerCtrl = async (req, res) => {
     const { username, password, nama_lengkap, email } = req.body;
+    const user_img = req.file.cloudStoragePublicUrl;
     const user_id = crypto.randomUUID();
 
     let hashedPass = await bcrypt.hashSync(password, 10);
@@ -16,8 +17,9 @@ const registerCtrl = async (req, res) => {
         user_id: user_id,
         username: username,
         password: hashedPass,
-        nama_lengkap:nama_lengkap,
+        nama_lengkap: nama_lengkap,
         email: email,
+        user_img: user_img
     }
     try {
         const user = new User(newUser);
