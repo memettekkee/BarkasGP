@@ -155,4 +155,30 @@ const deleteSaleByIdCtrl = async (req, res) => {
     }
 }
 
-module.exports = { createSalePostCtrl, getAllSaleCtrl, getSaleByIdCtrl, updateSaleByIdCtrl, deleteSaleByIdCtrl }
+const getSaleByUserIdCtrl = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const sale = await Sale.find({ user_id: id })
+
+        if (sale.length === 0) {
+            return res.status(404).json({
+                error: true,
+                message: 'Tidak ada produk yang anda post !'
+            });
+        }
+
+        return res.status(200).json({
+            error: false,
+            message: 'Semua produk postingan berhasil ditemukan',
+            sales: sale
+        });
+    } catch(error) {
+        return res.status(500).json({
+            error: true,
+            message: error.message
+        });
+    }
+}
+
+module.exports = { createSalePostCtrl, getAllSaleCtrl, getSaleByIdCtrl, updateSaleByIdCtrl, deleteSaleByIdCtrl, getSaleByUserIdCtrl }

@@ -1,8 +1,5 @@
 (WAJIB)
 
-your_user_id dan other_user_id sebaiknya diganti jadi user1_id dan user2_id
-nanti klo udah uplod gambar, jangan lupa tambahin other/your_image ke dalam participants
+nah BE nya dah jadi
 
-file upload gambarnya disimpan di Cloud Storage aza
-
-endpointnya kurang satu, yaitu GET /sale/:user_id (nampilin semua post yg dibuat oleh user)
+SEKARANG DESIGN, AWOKOAKW MALASSSSSSSSS - met
