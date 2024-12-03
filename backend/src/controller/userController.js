@@ -77,6 +77,7 @@ const loginCtrl = async (req, res) => {
 const updateProfilCtrl = async (req, res) => {
     const user_id = req.params.id
     const { username, nama_lengkap, email } = req.body;
+    const user_img = req.file.cloudStoragePublicUrl
 
     try {
         const user = await User.findOne({ user_id })
@@ -86,6 +87,7 @@ const updateProfilCtrl = async (req, res) => {
             username: username || user.username,
             nama_lengkap: nama_lengkap || user.nama_lengkap,
             email: email || user.email,
+            user_img: user_img || user.user_img,
             password: user.password,
         }
 

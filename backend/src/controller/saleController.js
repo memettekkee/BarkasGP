@@ -6,13 +6,15 @@ const Sale = require('../model/saleModel');
 
 const createSalePostCtrl = async ( req, res ) => {
     const { user_id, title, desc, price, location } = req.body
+    const sale_img = req.file.cloudStoragePublicUrl;
     const sale_id = crypto.randomUUID();
 
     const sellerInfo = await User.findOne({ user_id })
 
     const newSellerInfo = {
         user_id: sellerInfo.user_id,
-        fullname: sellerInfo.nama_lengkap
+        fullname: sellerInfo.nama_lengkap,
+        seller_img: sellerInfo.user_img
     }
 
     const newSale = {
@@ -22,6 +24,7 @@ const createSalePostCtrl = async ( req, res ) => {
         desc: desc,
         price: price,
         location: location,
+        sale_img: sale_img,
         seller_info: newSellerInfo
     }
 
@@ -81,6 +84,7 @@ const getSaleByIdCtrl = async (req, res) => {
 const updateSaleByIdCtrl = async (req, res) => {
     const { id } = req.params
     const { user_id, title, desc, price, location } = req.body
+    const sale_img = req.file.cloudStoragePublicUrl;
 
     try {
         const saleInfo = await Sale.findOne({ sale_id: id });
@@ -106,6 +110,7 @@ const updateSaleByIdCtrl = async (req, res) => {
                 desc: desc || saleInfo.desc,
                 price: price || saleInfo.price,
                 location: location || saleInfo.location,
+                sale_img: sale_img || saleInfo.sale_img,
                 updatedAt: Date.now()
             },
             { new: true } 
@@ -113,7 +118,7 @@ const updateSaleByIdCtrl = async (req, res) => {
 
         return res.status(200).json({
             error: false,
-            message: 'Data berhasil diubah',
+            message: 'Data produk berhasil diubah',
             sale: updatedSale
         });
 

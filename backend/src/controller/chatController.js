@@ -16,25 +16,24 @@ const startChatCtrl = async (req, res) => {
 
     try {
         const existingChat = await Chat.findOne({
-            $and: [
-                { participants: { $elemMatch: { your_user_id: your_user_id } } },
-                { participants: { $elemMatch: { other_user_id: other_user_id } } }
-            ]
+            participants_id: { $all: [your_user_id, other_user_id] }
         });
 
         let chat;
         if (existingChat) {
             chat = existingChat
         } else {
-
             chat = new Chat({
                 chat_id: chat_id,
+                participants_id: [your_user_id, other_user_id],
                 participants: [{
                     your_user_id: your_user_id,
-                    your_name: yourFullname.nama_lengkap
+                    your_name: yourFullname.nama_lengkap,
+                    your_img: yourFullname.user_img
                 }, {
                     other_user_id: other_user_id,
-                    other_name: otherFullname.nama_lengkap 
+                    other_name: otherFullname.nama_lengkap,
+                    other_img: otherFullname.user_img 
                 }]
             })
             await chat.save()
@@ -84,10 +83,7 @@ const sendMsgCtrl = async (req, res) => {
     try {
         const chat = await Chat.findOne({
             chat_id: chat_id,
-            $or: [
-                { participants: { $elemMatch: { your_user_id: your_user_id } } },
-                { participants: { $elemMatch: { other_user_id: your_user_id } } }
-            ]
+            participants_id: { $in: [your_user_id] }
         })
         if (!chat) {
             res.status(404).json({
@@ -117,10 +113,7 @@ const getAllChatSessionCtrl = async (req, res) => {
     const { your_user_id } = req.params
     try {
         const chats = await Chat.find({
-            $or: [
-                { participants: { $elemMatch: { your_user_id: your_user_id } } },
-                { participants: { $elemMatch: { other_user_id: your_user_id } } }
-            ]
+            participants_id: { $in: [your_user_id] }
         })
         .sort({ createdAt: -1 });
 
@@ -140,7 +133,7 @@ const getAllChatSessionCtrl = async (req, res) => {
                 });
                 const participants = await User.find({
                     user_id: { $in: userIds }
-                }).select('username user_id'); 
+                }).select('username user_id user_img'); 
 
                 return {
                     ...chat.toObject(),
@@ -169,10 +162,7 @@ const getAllChatMsgCtrl = async (req, res) => {
     try {
         const chat = await Chat.findOne({
             chat_id: chat_id,
-            $or: [
-                { participants: { $elemMatch: { your_user_id: your_user_id } } },
-                { participants: { $elemMatch: { other_user_id: your_user_id } } }
-            ]
+            participants_id: { $in: [your_user_id] }
         });
 
         if (!chat) {
