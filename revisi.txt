@@ -2,4 +2,7 @@
 
 nah BE nya dah jadi
 
+eh BE kurang endpoint /search/product query (by title)
+sama tambahin field category di endpoint route /sale
+
 SEKARANG DESIGN, AWOKOAKW MALASSSSSSSSS - met
