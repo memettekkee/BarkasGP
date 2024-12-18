@@ -3,13 +3,20 @@ import { CiMenuFries } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
 import { IconContext } from "react-icons/lib";
 import { Link, useLocation } from "react-router-dom";
+import { TbHelmet } from "react-icons/tb";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 export default function Navbar() {
 
     const location = useLocation();
     const [user, setUser] = useState()
     const [isActive, setIsActive] = useState(false)
-    const [isLogin, setIsLogin] = useState(false)
+    const [isLogin, setIsLogin] = useState(true)
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
 
     const navLinks = [
         { name: 'Home', href: '/' },
@@ -17,8 +24,6 @@ export default function Navbar() {
         { name: 'Login', href: '/login' },
         { name: 'Register', href: '/register' }
     ]
-
-    // console.log('Current Path:', location.pathname);
 
     return (
         <nav className="sticky top-0 z-10 font-main-bebas-neue text-white">
@@ -32,12 +37,56 @@ export default function Navbar() {
                                     }`} />
                                 <Link to='/'>Home</Link>
                             </li>
-                            <li>Marketplace</li>
+                            <li className="relative cursor-pointer group">
+                                <span className={`absolute bottom-0 h-[2px] w-0 rounded-md bg-thrdClr transition-all duration-300 ease-in-out group-hover:w-full ${location.pathname === '/marketplace' ? "w-[100%]" : "w-0"
+                                    }`} />
+                                <Link to='/marketplace'>Marketplace</Link>
+                            </li>
                         </ul>
                     </div>
-                    <div className="flex gap-5 items-center text-lg text-black">
-                        <button className="px-5 py-1 border-solid rounded-lg bg-white">Login</button>
-                        <button className="px-3 py-1 border-solid rounded-lg bg-white">Register</button>
+                    <div className="flex gap-5 items-center text-black ">
+                        {isLogin ? (
+                            <div className="relative">
+                                {/* Avatar atau icon sebagai trigger dropdown */}
+                                <button
+                                    onClick={toggleDropdown}
+                                    className="flex items-center gap-2 justify-center w-full h-full rounded-full focus:outline-none"
+                                >
+                                    {/* Misalnya pakai inisial nama user atau icon user */}
+                                    {/* <TbHelmet className="text-3xl text-bgClr bg-white rounded-full " /> */}
+                                    <img className="object-cover w-10 h-10 rounded-full" src="images/photo.jpg"/>
+                                    {isOpen ? (
+                                        <IoIosArrowUp className="text-lg text-anyClr" />
+                                    ) : (
+                                        <IoIosArrowDown className="text-lg text-anyClr" />
+                                    )}
+                                </button>
+                                {isOpen && (
+                                    <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                                        <ul className="py-2 font-sec-oswald">
+                                            <li>
+                                                <Link
+                                                    to="/dashboard"
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                >
+                                                    Dashboard
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    // onClick={handleLogout}
+                                                    className="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                >
+                                                    Logout
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <button className="px-5 py-1 border-solid rounded-lg bg-white transition-all duration-300 ease-in-out hover:bg-stone-400">Login</button>
+                        )}
                     </div>
                 </div>
             </div>

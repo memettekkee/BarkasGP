@@ -5,7 +5,8 @@ require('dotenv').config()
 
 const User = require('../model/userModel')
 const Sale = require('../model/saleModel')
-const Chat = require('../model/chatModel')
+const Chat = require('../model/chatModel');
+const { newsModel } = require('../model/newsModel');
 
 const registerCtrl = async (req, res) => {
     const { username, password, nama_lengkap, email } = req.body;
@@ -160,4 +161,20 @@ const getDashboardById = async (req, res) => {
     }
 }
 
-module.exports = { registerCtrl, loginCtrl, getUserbyidCtrl, updateProfilCtrl, getDashboardById } 
+// news Controller
+const getNewsCtrl = async (req, res) => {
+    try {
+        const news = await newsModel()
+        res.status(200).json({
+            success: true,
+            data: news,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+
+module.exports = { registerCtrl, loginCtrl, getUserbyidCtrl, updateProfilCtrl, getDashboardById, getNewsCtrl } 
