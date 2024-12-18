@@ -11,7 +11,7 @@ export default function Navbar() {
     const location = useLocation();
     const [user, setUser] = useState()
     const [isActive, setIsActive] = useState(false)
-    const [isLogin, setIsLogin] = useState(true)
+    const [isLogin, setIsLogin] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -47,14 +47,13 @@ export default function Navbar() {
                     <div className="flex gap-5 items-center text-black ">
                         {isLogin ? (
                             <div className="relative">
-                                {/* Avatar atau icon sebagai trigger dropdown */}
                                 <button
                                     onClick={toggleDropdown}
                                     className="flex items-center gap-2 justify-center w-full h-full rounded-full focus:outline-none"
                                 >
                                     {/* Misalnya pakai inisial nama user atau icon user */}
                                     {/* <TbHelmet className="text-3xl text-bgClr bg-white rounded-full " /> */}
-                                    <img className="object-cover w-10 h-10 rounded-full" src="images/photo.jpg"/>
+                                    <img className="object-cover w-10 h-10 rounded-full" src="images/photo.jpg" />
                                     {isOpen ? (
                                         <IoIosArrowUp className="text-lg text-anyClr" />
                                     ) : (
@@ -85,7 +84,9 @@ export default function Navbar() {
                                 )}
                             </div>
                         ) : (
-                            <button className="px-5 py-1 border-solid rounded-lg bg-white transition-all duration-300 ease-in-out hover:bg-stone-400">Login</button>
+                            <Link to="/register">
+                                <button className="px-5 py-1 border-solid rounded-lg bg-white transition-all duration-300 ease-in-out hover:bg-stone-400">Login</button>
+                            </Link>
                         )}
                     </div>
                 </div>
