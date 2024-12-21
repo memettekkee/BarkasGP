@@ -41,9 +41,9 @@ const registerCtrl = async (req, res) => {
 }
 
 const loginCtrl = async (req, res) => {
-    const { username, password } = req.body
+    const { email, password } = req.body
 
-    const user = await User.findOne({ username })
+    const user = await User.findOne({ email })
 
     if (user === null) {
         return res.status(400).json({
@@ -61,7 +61,7 @@ const loginCtrl = async (req, res) => {
         })
     }
 
-    const token = generateAccessToken(username);
+    const token = generateAccessToken(email);
 
     const detailUser = {
         ...user.toObject(),

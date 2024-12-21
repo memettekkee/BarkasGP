@@ -21,8 +21,8 @@ export default function register() {
         <main className="bg-bgClr min-h-screen flex flex-col">
             <Navbar />
             <div className="flex-grow flex justify-center items-center">
-                <div className="md:h-[500px] w-3/4 font-sec-oswald text-anyClr  flex ">
-                    <div className="w-1/2  flex flex-col justify-end md:py-20 md:pl-14">
+                <div className="md:h-[500px] w-3/4 font-sec-oswald text-anyClr flex">
+                    <div className="md:w-1/2 w-0 flex flex-col justify-end md:py-20 md:pl-14 ">
                         <div className="rounded-2xl overflow-hidden">
                             <img
                                 className="w-full h-full object-cover"
@@ -30,38 +30,38 @@ export default function register() {
                                 alt="Motorcycle GIF"
                             />
                         </div>
-                        <h1 className="text-center md:pt-2 text-xl ">"Ride beyond the limits, because the road to freedom has no finish line." - Red Bull</h1>
+                        <h1 className="text-center md:pt-2 text-xl hidden md:block">"Ride beyond the limits, because the road to freedom has no finish line." - Red Bull</h1>
                     </div>
-                    <div className="w-1/2 md:pr-10">
+                    <div className="md:w-1/2 w-full md:pr-10">
                         <div className="md:px-7 ">
                             <h3 className="text-center text-3xl font-semibold">Register</h3>
-                            <form className="md:px-16 md:pt-3 flex flex-col md:gap-5">
+                            <form className="md:px-16 md:pt-3 pt-7 flex flex-col gap-5 ">
                                 <div className={inputClassname}>
                                     <FaUser className="" />
-                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none md:pl-5" placeholder="Username" />
+                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Username" />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaUserCircle className="" />
-                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none md:pl-5" placeholder="Full Name" />
+                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Full Name" />
                                 </div>
                                 <div className={inputClassname}>
                                     <MdEmail className="" />
-                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none md:pl-5" placeholder="Email" />
+                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Email" />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaLocationDot className="" />
-                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none md:pl-5" placeholder="Location" />
+                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Location" />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaLock className="" />
                                     <input
                                         type={isShow ? 'text' : 'password'}
-                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none md:pl-5" placeholder="Password" />
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Password" />
                                     <button type="button" onClick={togglePasswordVisibility}>
                                         {isShow ? <FaEye /> : <FaEyeSlash />}
                                     </button>
                                 </div>
-                                <button className="md:p-2 bg-anyClr text-bgClr text-2xl rounded-lg hover:bg-neutral-700 hover:text-anyClr transition-all duration-200 ease-in-out">Register</button>
+                                <button className="p-2 bg-anyClr text-bgClr text-xl md:text-2xl rounded-lg hover:bg-neutral-700 hover:text-anyClr transition-all duration-200 ease-in-out">Register</button>
                             </form>
                         </div>
                     </div>

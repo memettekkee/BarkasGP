@@ -30,7 +30,15 @@ export default function Navbar() {
             <div className="hidden md:block h-20 bg-black">
                 <div className="flex items-center justify-between h-full px-5">
                     <div className="flex gap-12">
-                        <h1 className="text-4xl">BARKAS-GP</h1>
+                        <h1 className="text-4xl inline-flex items-center md:gap-4">
+                            <img
+                                src="/images/barkasgp.png"
+                                alt="Barkas GP Logo"
+                                className="h-12 w-auto"
+                            />
+                            BARKAS-GP
+                        </h1>
+
                         <ul className="flex items-center gap-6 font-sec-oswald text-xl">
                             <li className="relative cursor-pointer group">
                                 <span className={`absolute bottom-0 h-[2px] w-0 rounded-md bg-thrdClr transition-all duration-300 ease-in-out group-hover:w-full ${location.pathname === '/' ? "w-[100%]" : "w-0"
@@ -84,7 +92,7 @@ export default function Navbar() {
                                 )}
                             </div>
                         ) : (
-                            <Link to="/register">
+                            <Link to="/login">
                                 <button className="px-5 py-1 border-solid rounded-lg bg-white transition-all duration-300 ease-in-out hover:bg-stone-400">Login</button>
                             </Link>
                         )}
@@ -93,7 +101,14 @@ export default function Navbar() {
             </div>
             <div className="block md:hidden sticky">
                 <div className=" px-3 py-2 flex justify-between items-center">
-                    <h1 className="text-xl">BARKAS-GP</h1>
+                    <h1 className="text-xl inline-flex items-center gap-2 md:gap-4">
+                        <img
+                            src="/images/barkasgp.png"
+                            alt="Barkas GP Logo"
+                            className="h-5 w-auto"
+                        />
+                        BARKAS-GP
+                    </h1>
                     <div className="flex justify-end bg-transparent">
                         <button
                             onClick={() => setIsActive(!isActive)}
