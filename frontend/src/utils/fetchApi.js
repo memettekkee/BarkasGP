@@ -23,6 +23,33 @@ const API = axios.create({
     }
   );
 
+  export const loginUser = async (formData) => {
+    try {
+      const response = await API.post("/login", formData);
+      return response.data; 
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to login";
+    }
+  };
+
+  export const registerUser = async (formData) => {
+    try {
+      const response = await API.post("/register", formData);
+      return response.data; 
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to register";
+    }
+  };
+
+  export const getUserProfile = async (userId) => {
+    try {
+      const response = await API.get(`/profile/${userId}`);
+      return response.data; 
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to fetch user profile";
+    }
+  };
+
   export const getNews = async () => {
     try {
         const response = await API.get("/news");

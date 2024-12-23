@@ -3,6 +3,8 @@ import Footer from "../components/Footer"
 
 import { useState } from "react";
 
+import { registerUser } from "../utils/fetchApi";
+
 import { FaUser, FaUserCircle, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
@@ -10,10 +12,36 @@ import { MdEmail } from "react-icons/md";
 export default function register() {
 
     const [isShow, setIsShow] = useState(false)
+    const [message, setMessage] = useState("");
 
     const togglePasswordVisibility = () => {
         setIsShow(!isShow);
     };
+
+    const [formData, setFormData] = useState({
+        username: "",
+        password: "",
+        nama_lengkap: "",
+        email: "",
+        location: "",
+        user_img: "/images/avatar.png",
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const data = await registerUser(formData)
+          alert(data.message || "Akun telah dibuat, Silahkan Login");
+          window.location.href = "/login"
+        } catch (error) {
+          setMessage(error);
+        }
+      };
 
     const inputClassname = `p-4 bg-transparent shadow-sm shadow-anyClr rounded-lg border-l border-l-anyClr border-b border-b-anyClr border-solid w-full flex justify-center items-center focus-within:border-t focus-within:border-t-anyClr focus-within:border-r focus-within:border-r-anyClr`;
 
@@ -35,28 +63,62 @@ export default function register() {
                     <div className="md:w-1/2 w-full md:pr-10">
                         <div className="md:px-7 ">
                             <h3 className="text-center text-3xl font-semibold">Register</h3>
-                            <form className="md:px-16 md:pt-3 pt-7 flex flex-col gap-5 ">
+                            <form className="md:px-16 md:pt-3 pt-7 flex flex-col gap-5 " onSubmit={handleSubmit}>
                                 <div className={inputClassname}>
-                                    <FaUser className="" />
-                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Username" />
+                                    <FaUser />
+                                    <input 
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
+                                        type="text"
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={handleChange}
+                                        placeholder="Username"
+                                        required 
+                                    />
                                 </div>
                                 <div className={inputClassname}>
-                                    <FaUserCircle className="" />
-                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Full Name" />
+                                    <FaUserCircle />
+                                    <input 
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5"
+                                        type="text"
+                                        name="nama_lengkap"
+                                        value={formData.nama_lengkap}
+                                        onChange={handleChange}
+                                        placeholder="Full Name"
+                                        required
+                                    />
                                 </div>
                                 <div className={inputClassname}>
-                                    <MdEmail className="" />
-                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Email" />
+                                    <MdEmail />
+                                    <input 
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
+                                        type="text"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        placeholder="Email"
+                                        required 
+                                    />
                                 </div>
                                 <div className={inputClassname}>
-                                    <FaLocationDot className="" />
-                                    <input className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Location" />
+                                    <FaLocationDot />
+                                    <input 
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
+                                        type="text"
+                                        name="location"
+                                        value={formData.location}
+                                        onChange={handleChange}
+                                        placeholder="Location" />
                                 </div>
                                 <div className={inputClassname}>
-                                    <FaLock className="" />
+                                    <FaLock />
                                     <input
                                         type={isShow ? 'text' : 'password'}
-                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" placeholder="Password" />
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
+                                        placeholder="Password" />
                                     <button type="button" onClick={togglePasswordVisibility}>
                                         {isShow ? <FaEye /> : <FaEyeSlash />}
                                     </button>

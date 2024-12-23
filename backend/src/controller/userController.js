@@ -9,7 +9,7 @@ const Chat = require('../model/chatModel');
 const { newsModel } = require('../model/newsModel');
 
 const registerCtrl = async (req, res) => {
-    const { username, password, nama_lengkap, email } = req.body;
+    const { username, password, nama_lengkap, email, location } = req.body;
     const user_img = req.file.cloudStoragePublicUrl;
     const user_id = crypto.randomUUID();
 
@@ -20,6 +20,7 @@ const registerCtrl = async (req, res) => {
         password: hashedPass,
         nama_lengkap: nama_lengkap,
         email: email,
+        location: location,
         user_img: user_img
     }
     try {

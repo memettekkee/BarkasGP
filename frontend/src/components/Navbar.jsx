@@ -1,22 +1,43 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CiMenuFries } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
 import { IconContext } from "react-icons/lib";
 import { Link, useLocation } from "react-router-dom";
 import { TbHelmet } from "react-icons/tb";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { getUserProfile } from "../utils/fetchApi";
 
 export default function Navbar() {
 
     const location = useLocation();
     const [user, setUser] = useState()
     const [isActive, setIsActive] = useState(false)
-    const [isLogin, setIsLogin] = useState(false)
+    const [isLogin, setIsLogin] = useState(null)
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const userId = localStorage.getItem("user_id");
+            try {
+                const data = await getUserProfile(userId)
+                console.log(data)
+                setIsLogin(data.user_info)
+            } catch (error) {
+                console.log(error)
+            }
+        };
+        fetchProfile();
+    }, []);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
+
+    const handleLogout = () => {
+        localStorage.clear()
+        alert("Log Out Success")
+        window.location.href = "/";
+      }
 
     const navLinks = [
         { name: 'Home', href: '/' },
@@ -61,7 +82,7 @@ export default function Navbar() {
                                 >
                                     {/* Misalnya pakai inisial nama user atau icon user */}
                                     {/* <TbHelmet className="text-3xl text-bgClr bg-white rounded-full " /> */}
-                                    <img className="object-cover w-10 h-10 rounded-full" src="images/photo.jpg" />
+                                    <img className="object-cover w-10 h-10 rounded-full" src={isLogin.user_img} />
                                     {isOpen ? (
                                         <IoIosArrowUp className="text-lg text-anyClr" />
                                     ) : (
@@ -81,7 +102,7 @@ export default function Navbar() {
                                             </li>
                                             <li>
                                                 <button
-                                                    // onClick={handleLogout}
+                                                    onClick={handleLogout}
                                                     className="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                 >
                                                     Logout
