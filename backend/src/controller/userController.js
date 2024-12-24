@@ -10,7 +10,7 @@ const { newsModel } = require('../model/newsModel');
 
 const registerCtrl = async (req, res) => {
     const { username, password, nama_lengkap, email, location } = req.body;
-    const user_img = req.file.cloudStoragePublicUrl;
+    const user_img = 'https://storage.googleapis.com/barkasgp-bucket/avatar.png'
     const user_id = crypto.randomUUID();
 
     let hashedPass = await bcrypt.hashSync(password, 10);
@@ -78,17 +78,22 @@ const loginCtrl = async (req, res) => {
 
 const updateProfilCtrl = async (req, res) => {
     const user_id = req.params.id
-    const { username, nama_lengkap, email } = req.body;
-    const user_img = req.file.cloudStoragePublicUrl
+    const { username, nama_lengkap, email, location } = req.body;
+    // const user_img = req.file.cloudStoragePublicUrl
 
     try {
         const user = await User.findOne({ user_id })
+
+        const user_img = req.file
+        ? req.file.cloudStoragePublicUrl
+        : user.user_img;  
 
         const data = {
             user_id: user_id || user.user_id,
             username: username || user.username,
             nama_lengkap: nama_lengkap || user.nama_lengkap,
             email: email || user.email,
+            location: location || user.location,
             user_img: user_img || user.user_img,
             password: user.password,
         }

@@ -12,6 +12,7 @@ const SaleSchema = new mongoose.Schema({
     title: { type: String, required: true },
     desc: { type: String, required: true },
     price: { type: String, required: true },
+    category: { type: String, required: true },
     location: { type: String, required: true },
     sale_img: { type: String, required: true },
     seller_info: [SellerSchema],

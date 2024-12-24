@@ -5,7 +5,7 @@ const Sale = require('../model/saleModel');
 
 
 const createSalePostCtrl = async ( req, res ) => {
-    const { user_id, title, desc, price, location } = req.body
+    const { user_id, title, desc, price, category ,location } = req.body
     const sale_img = req.file.cloudStoragePublicUrl;
     const sale_id = crypto.randomUUID();
 
@@ -23,6 +23,7 @@ const createSalePostCtrl = async ( req, res ) => {
         title: title,
         desc: desc,
         price: price,
+        category: category,
         location: location,
         sale_img: sale_img,
         seller_info: newSellerInfo
@@ -83,11 +84,13 @@ const getSaleByIdCtrl = async (req, res) => {
 
 const updateSaleByIdCtrl = async (req, res) => {
     const { id } = req.params
-    const { user_id, title, desc, price, location } = req.body
-    const sale_img = req.file.cloudStoragePublicUrl;
+    const { user_id, title, desc, price,category ,location } = req.body
+    // const sale_img = req.file.cloudStoragePublicUrl;
 
     try {
         const saleInfo = await Sale.findOne({ sale_id: id });
+
+        const sale_img = req.file ? req.file.cloudStoragePublicUrl : saleInfo.sale_img
 
         if (!saleInfo) {
             return res.status(404).json({
@@ -110,6 +113,7 @@ const updateSaleByIdCtrl = async (req, res) => {
                 desc: desc || saleInfo.desc,
                 price: price || saleInfo.price,
                 location: location || saleInfo.location,
+                category: category || saleInfo.category,
                 sale_img: sale_img || saleInfo.sale_img,
                 updatedAt: Date.now()
             },

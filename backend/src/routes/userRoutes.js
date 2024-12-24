@@ -7,7 +7,7 @@ const { registerCtrl, loginCtrl, getUserbyidCtrl, updateProfilCtrl, getDashboard
 const { getSaleByUserIdCtrl } = require('../controller/saleController');
 const router = express.Router();
 
-router.post('/register', multer.single("user_img"), bucketUpload.uploadToBucket, registerCtrl);
+router.post('/register', multer.none(), registerCtrl);
 router.post('/login', multer.none(), loginCtrl);
 router.get('/profile/:id', getUserbyidCtrl);
 router.put('/profile/:id', verifyToken, multer.single("user_img"), bucketUpload.uploadToBucket, updateProfilCtrl);
