@@ -74,7 +74,7 @@ export default function login() {
                                 </div>
                                 <button className="p-2 bg-anyClr text-bgClr text-xl md:text-2xl rounded-lg hover:bg-neutral-700 hover:text-anyClr transition-all duration-200 ease-in-out" type="submit">Login</button>
                             </form>
-                            <p className="pt-2">Didn't have an account? <Link className="text-thrdClr" to="/register">Register Here !</Link></p>
+                            <p className="pt-2">Didn't have an account? <Link className="text-thrdClr hover:underline hover:decoration-thrdClr" to="/register">Register Here !</Link></p>
                         </div>
                     </div>
                 </div>
