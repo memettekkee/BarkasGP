@@ -24,7 +24,7 @@ export default function register() {
         nama_lengkap: "",
         email: "",
         location: "",
-        user_img: "/images/avatar.png",
+        user_img: "",
     });
 
     const handleChange = (e) => {

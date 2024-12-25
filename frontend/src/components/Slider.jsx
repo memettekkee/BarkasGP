@@ -17,7 +17,6 @@ export default function Slider({ data, type }) {
 
     return (
         <div className='w-full flex justify-center items-center gap-3 md:gap-10'>
-
             {type === 'bike' && (
                 <>
                     <div
