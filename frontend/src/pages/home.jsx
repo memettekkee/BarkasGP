@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 
 export default function Home() {
 
-    const [newsData, setNewsData] = useState(null);
+    const [newsData, setNewsData] = useState([]);
 
     useEffect(() => {
         const fetchNews = async () => {

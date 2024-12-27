@@ -6,13 +6,13 @@ export default function ProductCard({ datas }) {
 
     const [selectedItem, setSelectedItem] = useState(null);
 
-    // Fungsi yang dipanggil saat user menekan tombol "Details"
     const handleDetailsClick = (item) => {
+        localStorage.setItem("other_id", item.user_id)
         setSelectedItem(item);
     };
 
-    // Fungsi untuk menutup modal
     const handleCloseModal = () => {
+        localStorage.removeItem("other_id")
         setSelectedItem(null);
     };
 
@@ -51,7 +51,6 @@ export default function ProductCard({ datas }) {
                     </div>
                 </li>
             ))}
-            {/* Modal akan tampil jika selectedItem tidak null */}
             {selectedItem && (
                 <DetailsCard item={selectedItem} onClose={handleCloseModal} />
             )}

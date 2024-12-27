@@ -23,11 +23,16 @@ export default function login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const data = await loginUser(formData);
-            localStorage.setItem("token", data.user.token); 
-            localStorage.setItem("user_id", data.user.user_id); 
-            alert("Login successful!");
-            window.location.href = "/";
+            const isLogin = localStorage.getItem("token") && localStorage.getItem("user_id")
+            if (isLogin) {
+                alert("Anda sudah Login!")
+            } else {
+                const data = await loginUser(formData);
+                localStorage.setItem("token", data.user.token);
+                localStorage.setItem("user_id", data.user.user_id);
+                alert("Login successful!");
+                window.location.href = "/";
+            }
         } catch (error) {
             alert(error);
         }
@@ -51,13 +56,14 @@ export default function login() {
                             <form className="md:px-16 pt-7 flex flex-col gap-5 w-3/4" onSubmit={handleSubmit}>
                                 <div className={inputClassname}>
                                     <MdEmail />
-                                    <input 
+                                    <input
                                         type="text"
                                         name="email"
                                         onChange={handleChange}
                                         value={formData.email}
-                                        className="placeholder-[#D9D9D9] md:w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
-                                        placeholder="Email" />
+                                        className="placeholder-[#D9D9D9] md:w-full bg-transparent focus:outline-none pl-3 md:pl-5"
+                                        placeholder="Email"
+                                        required />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaLock />
@@ -66,8 +72,9 @@ export default function login() {
                                         onChange={handleChange}
                                         name="password"
                                         value={formData.password}
-                                        className="placeholder-[#D9D9D9] md:w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
-                                        placeholder="Password" />
+                                        className="placeholder-[#D9D9D9] md:w-full bg-transparent focus:outline-none pl-3 md:pl-5"
+                                        placeholder="Password"
+                                        required />
                                     <button type="button" onClick={togglePasswordVisibility}>
                                         {isShow ? <FaEye /> : <FaEyeSlash />}
                                     </button>

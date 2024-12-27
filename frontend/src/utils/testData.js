@@ -3,7 +3,7 @@ export const testData = [
         title: "Yamaha NMAX 2023",
         desc: "Motor matic dengan desain elegan dan fitur modern.",
         price: 30000000,
-        category: "Matic",
+        category: "Trail",
         location: "Jakarta",
         sale_img: "/images/avatar.png",
         seller_info: {

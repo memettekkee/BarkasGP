@@ -50,6 +50,23 @@ const API = axios.create({
     }
   };
 
+  export const getUserDashboard = async (userId) => {
+    try {
+      const response = await API.get(`/dashboard/${userId}`);
+      return response.data; 
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to fetch user dashboard";
+    }
+  };
+
+  export const getAllProduct = async () => {
+    try {
+        const response = await API.get("/sale");
+        return response.data
+    } catch (error) {
+        throw error.response?.data?.message || "Failed to get Products !";
+    }
+  }
   export const getNews = async () => {
     try {
         const response = await API.get("/news");

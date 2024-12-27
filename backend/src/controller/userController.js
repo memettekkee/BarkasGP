@@ -152,12 +152,16 @@ const getDashboardById = async (req, res) => {
             ]
         })
 
+        const dashboard = {
+            allPost: totalPost,
+            allChatSession: totalChatSession
+        }
+
         return res.status(200).json({
             error: false,
             message: 'Data dashboard ditampilkan !',
             username: user.username,
-            totalPost: totalPost,
-            totalChatSession: totalChatSession
+            dashboard: dashboard
         });
 
     } catch(error) {
@@ -167,7 +171,6 @@ const getDashboardById = async (req, res) => {
     }
 }
 
-// news Controller
 const getNewsCtrl = async (req, res) => {
     try {
         const news = await newsModel()

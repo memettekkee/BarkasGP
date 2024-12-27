@@ -7,17 +7,29 @@ export default function DetailsCard({ item, onClose }) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     };
 
+    const handleMsg = () => {
+        const isLogin = localStorage.getItem("user_id")
+        if (!isLogin) {
+            localStorage.removeItem("other_id")
+            alert("Login dulu")
+            window.location.href = "/login"
+        } else {
+            const otherId = localStorage.getItem("other_id")
+            if (isLogin === otherId) {
+                alert("pesan tidak terkirim, ini produk anda!")
+                onClose()
+            }
+        }
+    }
+
     return (
-        // Layar gelap di belakang modal
         <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
-            onClick={onClose} // klik area gelap utk menutup modal
+            onClick={onClose} 
         >
-            {/* Kotak modal utama */}
             <div
                 className="bg-white p-6 rounded-md shadow-md w-[90%] max-w-md font-sec-oswald"
                 onClick={(e) => e.stopPropagation()}
-            // stopPropagation agar klik dalam modal tidak menutup modal
             >
                 <h2 className="text-2xl font-bold mb-2">
                     {item.title}
@@ -35,11 +47,7 @@ export default function DetailsCard({ item, onClose }) {
                     <strong>Price:</strong> Rp {formatRupiah(item.price)}
                 </p>
 
-                {/* Contoh form / input tambahan (misal untuk chat) */}
                 <div className="mb-4 font-thrd-roboto">
-                    {/* <label className="block mb-1" htmlFor="message">
-                        Pesan untuk penjual:
-                    </label> */}
                     <textarea
                         id="message"
                         rows="3"
@@ -57,11 +65,7 @@ export default function DetailsCard({ item, onClose }) {
                     </button>
                     <button
                         className="px-4 py-2 bg-thrdClr text-white rounded hover:bg-yellow-600 flex items-center gap-1"
-                        onClick={() => {
-                            // di sini bisa panggil handle kirim pesan
-                            alert("Pesan terkirim!");
-                            onClose();
-                        }}
+                        onClick={() => handleMsg()}
                     >
                         Send <span><FiSend /></span>
                     </button>

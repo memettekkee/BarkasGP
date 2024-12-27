@@ -37,7 +37,7 @@ export default function Navbar() {
         localStorage.clear()
         alert("Log Out Success")
         window.location.href = "/";
-      }
+    }
 
     const navLinks = [
         { name: 'Home', href: '/' },
@@ -59,7 +59,6 @@ export default function Navbar() {
                             />
                             BARKAS-GP
                         </h1>
-
                         <ul className="flex items-center gap-6 font-sec-oswald text-xl">
                             <li className="relative cursor-pointer group">
                                 <span className={`absolute bottom-0 h-[2px] w-0 rounded-md bg-thrdClr transition-all duration-300 ease-in-out group-hover:w-full ${location.pathname === '/' ? "w-[100%]" : "w-0"
@@ -80,8 +79,6 @@ export default function Navbar() {
                                     onClick={toggleDropdown}
                                     className="flex items-center gap-2 justify-center w-full h-full rounded-full focus:outline-none"
                                 >
-                                    {/* Misalnya pakai inisial nama user atau icon user */}
-                                    {/* <TbHelmet className="text-3xl text-bgClr bg-white rounded-full " /> */}
                                     <img className="object-cover w-10 h-10 rounded-full" src={isLogin.user_img} />
                                     {isOpen ? (
                                         <IoIosArrowUp className="text-lg text-anyClr" />

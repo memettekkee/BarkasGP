@@ -9,6 +9,13 @@ const createSalePostCtrl = async ( req, res ) => {
     const sale_img = req.file.cloudStoragePublicUrl;
     const sale_id = crypto.randomUUID();
 
+    if (!user_id) {
+        return res.status(404).json({
+            error: true,
+            message: "Belum Login!"
+        });
+    }
+
     const sellerInfo = await User.findOne({ user_id })
 
     const newSellerInfo = {

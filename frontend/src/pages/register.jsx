@@ -33,15 +33,19 @@ export default function register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
         try {
-          const data = await registerUser(formData)
-          alert(data.message || "Akun telah dibuat, Silahkan Login");
-          window.location.href = "/login"
+            const isLogin = localStorage.getItem("token") && localStorage.getItem("user_id")
+            if (isLogin) {
+                alert("Log out dahulu untuk register !")
+            } else {
+                const data = await registerUser(formData)
+                alert(data.message || "Akun telah dibuat, Silahkan Login");
+                window.location.href = "/login"
+            }
         } catch (error) {
-          setMessage(error);
+            setMessage(error);
         }
-      };
+    };
 
     const inputClassname = `p-4 bg-transparent shadow-sm shadow-anyClr rounded-lg border-l border-l-anyClr border-b border-b-anyClr border-solid w-full flex justify-center items-center focus-within:border-t focus-within:border-t-anyClr focus-within:border-r focus-within:border-r-anyClr`;
 
@@ -66,19 +70,19 @@ export default function register() {
                             <form className="md:px-16 md:pt-3 pt-7 flex flex-col gap-5 " onSubmit={handleSubmit}>
                                 <div className={inputClassname}>
                                     <FaUser />
-                                    <input 
-                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
+                                    <input
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5"
                                         type="text"
                                         name="username"
                                         value={formData.username}
                                         onChange={handleChange}
                                         placeholder="Username"
-                                        required 
+                                        required
                                     />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaUserCircle />
-                                    <input 
+                                    <input
                                         className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5"
                                         type="text"
                                         name="nama_lengkap"
@@ -90,25 +94,26 @@ export default function register() {
                                 </div>
                                 <div className={inputClassname}>
                                     <MdEmail />
-                                    <input 
-                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
+                                    <input
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5"
                                         type="text"
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
                                         placeholder="Email"
-                                        required 
+                                        required
                                     />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaLocationDot />
-                                    <input 
-                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
+                                    <input
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5"
                                         type="text"
                                         name="location"
                                         value={formData.location}
                                         onChange={handleChange}
-                                        placeholder="Location" />
+                                        placeholder="Location"
+                                        required />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaLock />
@@ -117,8 +122,9 @@ export default function register() {
                                         name="password"
                                         value={formData.password}
                                         onChange={handleChange}
-                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5" 
-                                        placeholder="Password" />
+                                        className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5"
+                                        placeholder="Password"
+                                        required />
                                     <button type="button" onClick={togglePasswordVisibility}>
                                         {isShow ? <FaEye /> : <FaEyeSlash />}
                                     </button>
