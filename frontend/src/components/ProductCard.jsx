@@ -28,6 +28,7 @@ export default function ProductCard({ datas }) {
                     className="min-h-44 flex rounded-lg bg-slate-300 border-2 border-black font-sec-oswald"
                 >
                     <img className="w-[40%] rounded-es-lg rounded-ss-lg bg-anyClr object-contain" src={data.sale_img} />
+                    {/* Bikin disini type === (berbeda) */}
                     <div className="w-[60%] flex flex-col justify-between py-1 px-2">
                         <div className="flex flex-col gap-5">
                             <div className="">

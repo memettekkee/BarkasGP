@@ -1,12 +1,37 @@
+import { useState, useEffect } from "react"
+
+import { getUserProduct } from "../../utils/fetchApi"
+
+import ProductCard from "../../components/ProductCard"
+import EmptyData from "../../components/common/EmptyData"
+
 export default function product() {
+
+    const [userAllProduct, setUserAllProduct] = useState()
+
+    useEffect(() => {
+        const fetchAllUserProduct = async () => {
+            const userId = localStorage.getItem("user_id")
+            try {
+                const data = await getUserProduct(userId)
+                setUserAllProduct(data.sales)
+                console.log(data.sales)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchAllUserProduct()
+    }, [])
+
     return (
-        <div className="gap-96 flex flex-col">
-            {/* <p>nah div ini yg ada overflownya / ada scrollnya. yang lainnya sticky</p>
-            <p>Konten panjang di sini...</p>
-            <p>Konten panjang di sini...</p>
-            <p>Konten panjang di sini...</p>
-            <p>Konten panjang di sini...</p>
-            <p>Konten panjang di sini...</p> */}
-        </div>
+        <>
+            {userAllProduct ? (
+                <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <ProductCard datas={userAllProduct} />
+                </ul>
+            ) : (
+                <EmptyData/>
+            )}
+        </>
     )
 }

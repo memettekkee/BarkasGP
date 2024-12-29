@@ -27,7 +27,7 @@ export default function UserDashboard() {
     }, [])
 
     return (
-        <div className="h-36 bg-anyClr border-b border-b-bgClr rounded-b-lg sticky top-0 z-10">
+        <div className="h-36 bg-anyClr border-b border-b-bgClr rounded-b-lg sticky top-0 z-10 hidden md:block">
             <div className="py-2 px-10 flex justify-between h-full">
                 <div className="flex gap-3 h-full font-thrd-roboto">
                     <img className="h-full object-cover rounded-full w-[127px] border border-bgClr" src={userData.user_img}/>

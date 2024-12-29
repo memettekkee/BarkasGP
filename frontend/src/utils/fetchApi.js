@@ -59,6 +59,15 @@ const API = axios.create({
     }
   };
 
+  export const getUserProduct = async (userId) => {
+    try {
+      const response = await API.get(`/profile/sale/${userId}`);
+      return response.data; 
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to fetch all user product";
+    }
+  };
+
   export const getAllProduct = async () => {
     try {
         const response = await API.get("/sale");
@@ -67,6 +76,7 @@ const API = axios.create({
         throw error.response?.data?.message || "Failed to get Products !";
     }
   }
+  
   export const getNews = async () => {
     try {
         const response = await API.get("/news");
