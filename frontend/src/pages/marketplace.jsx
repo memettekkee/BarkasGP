@@ -19,6 +19,7 @@ export default function marketplace() {
         const fetchAllProducts = async () => {
             try {
                 const data = await getAllProduct();
+                console.log(data.sale)
                 setProductData(data.sale)
             } catch (error) {
                 console.log(error)
@@ -103,7 +104,7 @@ export default function marketplace() {
                 <div className="px-5 flex-1 flex">
                     <div className="md:bg-anyClr flex-1 md:rounded-se-xl md:rounded-ss-xl md:border md:border-t-2 md:border-t-black md:p-5">
                         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pb-5 md:pb-0">
-                            <ProductCard datas={filteredData} />
+                            <ProductCard type="marketplace" datas={filteredData} />
                         </ul>
                     </div>
                 </div>

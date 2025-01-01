@@ -76,6 +76,15 @@ const API = axios.create({
         throw error.response?.data?.message || "Failed to get Products !";
     }
   }
+
+  export const deleteProduct = async (saleId) => {
+    try {
+        const response = await API.delete(`/sale/${saleId}`);
+        return response.data
+    } catch (error) {
+        throw error.response?.data?.message || "Failed to delete Products !";
+    }
+  }
   
   export const getNews = async () => {
     try {

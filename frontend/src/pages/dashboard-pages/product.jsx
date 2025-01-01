@@ -26,8 +26,8 @@ export default function product() {
     return (
         <>
             {userAllProduct ? (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <ProductCard datas={userAllProduct} />
+                <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+                    <ProductCard type='my-product' datas={userAllProduct} />
                 </ul>
             ) : (
                 <EmptyData/>
