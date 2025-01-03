@@ -91,15 +91,15 @@ export default function ProductCard({ datas, type }) {
                     {type === 'my-product' && (
                         <div className="w-[60%] flex flex-col gap-3 py-1 px-2 justify-between">
                             <div className="flex flex-col gap-3">
-                                <div className="flex gap-2 items-center">
-                                    <h1 className="text-2xl">{data.title}</h1>
-                                    <h2 className="font-light text-xl">({data.category})</h2>
+                                <div className="flex md:gap-2 gap-1 items-center">
+                                    <h1 className="md:text-2xl text-lg">{data.title}</h1>
+                                    <h2 className="font-light md:text-xl">({data.category})</h2>
                                 </div>
-                                <div className="font-extralight text-lg">
+                                <div className="font-extralight md:text-lg text-sm">
                                     <p>Rp {formatRupiah(data.price)}</p>
                                     <p>{data.location}</p>
                                 </div>
-                                <div className="">
+                                <div className="text-xs md:text-sm">
                                     <p>{data.desc}</p>
                                 </div>
                             </div>

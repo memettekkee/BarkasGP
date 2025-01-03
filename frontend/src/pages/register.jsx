@@ -69,7 +69,7 @@ export default function register() {
                             <h3 className="text-center text-3xl font-semibold">Register</h3>
                             <form className="md:px-16 md:pt-3 pt-7 flex flex-col gap-5 " onSubmit={handleSubmit}>
                                 <div className={inputClassname}>
-                                    <FaUser />
+                                    <FaUser/>
                                     <input
                                         className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5"
                                         type="text"
