@@ -28,7 +28,7 @@ export default function DetailsCard({ item, onClose }) {
             onClick={onClose} 
         >
             <div
-                className="bg-white p-6 rounded-md shadow-md w-[90%] max-w-md font-sec-oswald"
+                className="bg-anyClr p-6 rounded-md shadow-md w-[90%] max-w-md font-sec-oswald"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h2 className="text-2xl font-bold mb-2">

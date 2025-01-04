@@ -26,7 +26,7 @@ export default function product() {
     return (
         <>
             {userAllProduct ? (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 pb-10">
                     <ProductCard type='my-product' datas={userAllProduct} />
                 </ul>
             ) : (

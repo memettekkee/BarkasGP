@@ -77,6 +77,20 @@ const API = axios.create({
     }
   }
 
+  export const postProduct = async (formBody) => {
+    console.log(formBody)
+    try {
+      const response = await API.post("/sale", formBody, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data; 
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to post Product !";
+    }
+  };
+
   export const deleteProduct = async (saleId) => {
     try {
         const response = await API.delete(`/sale/${saleId}`);
