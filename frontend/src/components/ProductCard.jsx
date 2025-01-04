@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import DetailsCard from "./DetailsCard";
 
@@ -11,6 +11,7 @@ export default function ProductCard({ datas, type }) {
 
     const [selectedItem, setSelectedItem] = useState(null);
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleBeforeUnload = () => {
@@ -28,7 +29,7 @@ export default function ProductCard({ datas, type }) {
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    }, [location]);  
+    }, [location]);
 
     const handleDeleteProduct = async (item) => {
         try {
@@ -38,6 +39,10 @@ export default function ProductCard({ datas, type }) {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const handleUpdateProduct = (item) => {
+        navigate("/dashboard/update-product", { state: item })
     }
 
     const handleDetailsClick = (item) => {
@@ -104,13 +109,15 @@ export default function ProductCard({ datas, type }) {
                                 </div>
                             </div>
                             <div className="flex justify-end gap-2">
-                                <button className="p-1 bg-thrdClr text-bgClr border border-bgClr rounded-lg hover:border-thrdClr hover:text-thrdClr hover:bg-bgClr">
+                                <button
+                                    onClick={() => handleUpdateProduct(data)}
+                                    className="p-1 bg-thrdClr text-bgClr border border-bgClr rounded-lg hover:border-thrdClr hover:text-thrdClr hover:bg-bgClr">
                                     <FaPencilAlt />
                                 </button>
                                 <button
                                     onClick={() => handleDeleteProduct(data)}
                                     className="p-1 bg-mainClr text-bgClr border border-bgClr rounded-lg hover:border-mainClr hover:text-mainClr hover:bg-bgClr">
-                                    <MdDelete/>
+                                    <MdDelete />
                                 </button>
                             </div>
                         </div>

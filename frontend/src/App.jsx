@@ -10,6 +10,7 @@ import Dashboard from "./pages/dashboard"
 
 import Product from "./pages/dashboard-pages/product"
 import AddProduct from "./pages/dashboard-pages/add-product"
+import UpdateProduct from "./pages/dashboard-pages/update-product"
 
 import PrivateRoute from "./utils/PrivateRoute"
 
@@ -35,6 +36,7 @@ function App() {
             <Route index element={<Navigate to="product" />} />
             <Route path="product" element={<Product />} />
             <Route path="add-product" element={<AddProduct />} />
+            <Route path="update-product" element={<UpdateProduct />} />
           </Route>
         </Routes>
       </Router>

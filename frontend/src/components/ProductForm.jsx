@@ -1,32 +1,32 @@
 import { useState } from "react"
-import { postProduct } from "../utils/fetchApi";
+import { postProduct, updateProduct } from "../utils/fetchApi";
 
-export default function ProductForm() {
+export default function ProductForm({ formItem }) {
 
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [imagePreview, setImagePreview] = useState(null);
-    const [formData, setFormData] = useState({
-        title: "",
-        location: "",
-        price: "",
-        desc: "",
-    })
-    // Tambahkan state untuk loading
+    console.log(formItem)
+
+    const [imagePreview, setImagePreview] = useState(formItem?.sale_img || null);
+    const [formData, setFormData] = useState(() => ({
+        title: formItem?.title || "",
+        location: formItem?.location || "",
+        price: formItem?.price || "",
+        desc: formItem?.desc || "",
+        category: formItem?.category || "",
+    }));
+
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSelect = (value) => {
-        setSelectedCategory(value);
         setFormData({ ...formData, category: value });
     };
 
     const getButtonClass = (value) => {
-        return selectedCategory === value
+        return formData.category === value
             ? 'bg-mainClr text-anyClr border-mainClr'
             : 'border-gray-300 text-gray-700';
     };
 
     const inputClassname = `p-2 border border-bgClr md:w-72 rounded-lg`
-
 
     const categoryCheck = [
         { value: 'Trail' },
@@ -53,8 +53,8 @@ export default function ProductForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsLoading(true); // mulai loading
-        
+        setIsLoading(true);
+
         try {
             const userId = localStorage.getItem("user_id");
             const formdatas = { ...formData, user_id: userId };
@@ -67,9 +67,8 @@ export default function ProductForm() {
             formBody.append("category", formdatas.category);
             formBody.append("user_id", formdatas.user_id);
 
-            // File hanya di-append jika ada
-            if (formdatas.sale_img) {
-                formBody.append("sale_img", formdatas.sale_img);
+            if (newData.sale_img && typeof newData.sale_img !== "string") {
+                formBody.append("sale_img", newData.sale_img);
             }
 
             await postProduct(formBody);
@@ -78,12 +77,46 @@ export default function ProductForm() {
         } catch (error) {
             console.log(error);
         } finally {
-            setIsLoading(false); // selesai loading (berhasil/gagal)
+            setIsLoading(false);
+        }
+    };
+
+    const handleUpdateSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const saleId = formItem.sale_id; 
+            const userId = localStorage.getItem("user_id");
+            const updatedData = { ...formData, user_id: userId };
+
+            // FormData sama seperti saat create
+            const formBody = new FormData();
+            formBody.append("title", updatedData.title);
+            formBody.append("location", updatedData.location);
+            formBody.append("price", updatedData.price);
+            formBody.append("desc", updatedData.desc);
+            formBody.append("category", updatedData.category);
+            formBody.append("user_id", updatedData.user_id);
+
+            // Kalau sale_img masih string lama, berarti user tidak ganti foto
+            // Kalau sale_img sudah berbentuk File, berarti user upload baru
+            if (updatedData.sale_img && typeof updatedData.sale_img !== "string") {
+                formBody.append("sale_img", updatedData.sale_img);
+            }
+
+            await updateProduct(formBody, saleId);
+            alert("Product berhasil diupdate!");
+            window.location.href = "/dashboard/product";
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="pt-5 font-thrd-roboto flex flex-col items-center justify-center">
+        <form onSubmit={formItem ? handleUpdateSubmit : handleSubmit} className="pt-5 font-thrd-roboto flex flex-col items-center justify-center">
             <div className="flex md:flex-row flex-col md:gap-14 gap-5 justify-center ">
                 <div className="flex flex-col gap-5">
                     <div className="flex flex-col gap-1">
@@ -131,6 +164,7 @@ export default function ProductForm() {
                                         type="radio"
                                         name="category"
                                         value={data.value}
+                                        checked={formData.category === data.value}
                                         className="hidden"
                                         onChange={() => handleSelect(data.value)}
                                         required
@@ -182,7 +216,7 @@ export default function ProductForm() {
                 className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-5"
                 disabled={isLoading}
             >
-                {isLoading ? "Loading..." : "Submit"}
+                {isLoading ? "Loading..." : formItem ? "Update" : "Submit"}
             </button>
         </form>
     )
