@@ -1,5 +1,5 @@
-export default function EmptyData() {
+export default function EmptyData({ text }) {
     return (
-        <p className="text-center">tidak ada postingan!</p>
+        <p className="text-center">{text}</p>
     )
 }

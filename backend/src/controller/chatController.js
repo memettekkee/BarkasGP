@@ -133,7 +133,7 @@ const getAllChatSessionCtrl = async (req, res) => {
                 });
                 const participants = await User.find({
                     user_id: { $in: userIds }
-                }).select('username user_id user_img'); 
+                }).select('nama_lengkap user_id user_img'); 
 
                 return {
                     ...chat.toObject(),

@@ -96,10 +96,10 @@ export default function Slider({ data, type }) {
                                 key={index}
                                 className="flex items-center justify-center text-black font-bold text-xl w-[70%] rounded-xl p-2"
                             >
-                                <div className="bg-white rounded-xl font-thrd-roboto flex flex-col h-full">
+                                <div className="bg-white rounded-xl font-thrd-roboto flex flex-col md:min-h-[475px]">
                                     <img
                                         src={item.urlToImage}
-                                        className="w-full h-[200px] object-cover rounded-t-xl border-solid border-4"
+                                        className="w-full h-28 md:h-[200px] object-cover rounded-t-xl border-solid border-4"
                                         alt="news"
                                     />
                                     <div className="flex-1 p-3">

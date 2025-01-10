@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/register', multer.none(), registerCtrl);
 router.post('/login', multer.none(), loginCtrl);
 router.get('/profile/:id', getUserbyidCtrl);
-router.put('/profile/:id', verifyToken, multer.single("user_img"), bucketUpload.uploadToBucket, updateProfilCtrl);
+router.put('/profile/:id', multer.single("user_img"), bucketUpload.uploadToBucket, updateProfilCtrl);
 router.get('/dashboard/:id', getDashboardById)
 router.get('/profile/sale/:id', getSaleByUserIdCtrl)
 

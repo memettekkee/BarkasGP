@@ -12,7 +12,7 @@ export default function Navbar() {
     const location = useLocation();
     const [user, setUser] = useState()
     const [isActive, setIsActive] = useState(false)
-    const [isLogin, setIsLogin] = useState(null)
+    const [isLogin, setIsLogin] = useState([])
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -44,6 +44,12 @@ export default function Navbar() {
         { name: 'Marketplace', href: '/marketplace' },
         { name: 'Login', href: '/login' },
         { name: 'Register', href: '/register' }
+    ]
+
+    const loginNavLinks = [
+        { name: 'Home', href: '/' },
+        { name: 'Marketplace', href: '/marketplace' },
+        { name: 'Dashboard', href: '/dashboard' },
     ]
 
     return (
@@ -148,21 +154,43 @@ export default function Navbar() {
                             </button>
                         </div>
                         <nav className="flex-grow">
-                            <ul className="space-y-4 px-4 text-lg pt-2">
-                                {navLinks.map((link, index) => (
-                                    <li key={index} className="relative cursor-pointer group">
-                                        <span className={`absolute bottom-0 h-[2px] w-0 rounded-md bg-thrdClr transition-all duration-300 ease-in-out group-hover:w-full ${location.pathname === link.href ? "w-[100%]" : "w-0"
-                                            }`} />
-                                        <Link to={link.href} className="text-black font-sec-oswald">
-                                            {link.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
+                            {isLogin ? (
+                                <>
+                                    <ul className="space-y-4 px-4 text-lg pt-2">
+                                        {loginNavLinks.map((link, index) => (
+                                            <li key={index} className="relative cursor-pointer group">
+                                                <span className={`absolute bottom-0 h-[2px] w-0 rounded-md bg-thrdClr transition-all duration-300 ease-in-out group-hover:w-full ${location.pathname === link.href ? "w-[100%]" : "w-0"
+                                                    }`} />
+                                                <Link to={link.href} className="text-bgClr font-sec-oswald">
+                                                    {link.name}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <button onClick={handleLogout} className="text-bgClr space-y-4 px-4 text-lg pt-3 font-sec-oswald ">Log Out</button>
+                                </>
+
+                            ) : (
+                                <ul className="space-y-4 px-4 text-lg pt-2">
+                                    {navLinks.map((link, index) => (
+                                        <li key={index} className="relative cursor-pointer group">
+                                            <span className={`absolute bottom-0 h-[2px] w-0 rounded-md bg-thrdClr transition-all duration-300 ease-in-out group-hover:w-full ${location.pathname === link.href ? "w-[100%]" : "w-0"
+                                                }`} />
+                                            <Link to={link.href} className="text-bgClr font-sec-oswald">
+                                                {link.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </nav>
-                        <div className="p-6 border-t text-black text-sm">
-                            <p>SZfc</p>
-                            {/* ntar bikin paragraf pake value name  */}
+                        <div className="px-3 py-5 border-t text-black text-xs">
+                            {isLogin && (
+                                <div className="flex gap-1 items-center">
+                                    <img src={isLogin.user_img} className="object-cover w-5 h-5 rounded-full" />
+                                    <p className="font-thrd-roboto">{isLogin.username}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

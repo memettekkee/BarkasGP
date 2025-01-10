@@ -11,6 +11,8 @@ import Dashboard from "./pages/dashboard"
 import Product from "./pages/dashboard-pages/product"
 import AddProduct from "./pages/dashboard-pages/add-product"
 import UpdateProduct from "./pages/dashboard-pages/update-product"
+import UpdateProfile from "./pages/dashboard-pages/update-profile"
+import Chat from "./pages/dashboard-pages/chat"
 
 import PrivateRoute from "./utils/PrivateRoute"
 
@@ -37,6 +39,8 @@ function App() {
             <Route path="product" element={<Product />} />
             <Route path="add-product" element={<AddProduct />} />
             <Route path="update-product" element={<UpdateProduct />} />
+            <Route path="update-profile" element={<UpdateProfile />} />
+            <Route path="chat" element={<Chat />} />
           </Route>
         </Routes>
       </Router>

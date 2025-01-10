@@ -63,7 +63,8 @@ export default function login() {
                                         value={formData.email}
                                         className="placeholder-[#D9D9D9] md:w-full bg-transparent focus:outline-none pl-3 md:pl-5"
                                         placeholder="Email"
-                                        required />
+                                        required
+                                        autoComplete="off" />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaLock />
@@ -74,7 +75,8 @@ export default function login() {
                                         value={formData.password}
                                         className="placeholder-[#D9D9D9] md:w-full bg-transparent focus:outline-none pl-3 md:pl-5"
                                         placeholder="Password"
-                                        required />
+                                        required
+                                        autoComplete="off" />
                                     <button type="button" onClick={togglePasswordVisibility}>
                                         {isShow ? <FaEye /> : <FaEyeSlash />}
                                     </button>

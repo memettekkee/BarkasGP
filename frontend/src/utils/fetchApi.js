@@ -50,6 +50,19 @@ const API = axios.create({
     }
   };
 
+  export const updateUserProfile = async (formBody, userId) => {
+    try {
+      const response = await API.put(`/profile/${userId}`, formBody, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data; 
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to update user profile";
+    }
+  };
+
   export const getUserDashboard = async (userId) => {
     try {
       const response = await API.get(`/dashboard/${userId}`);
@@ -111,6 +124,50 @@ const API = axios.create({
         return response.data
     } catch (error) {
         throw error.response?.data?.message || "Failed to delete Products !";
+    }
+  }
+
+  export const startChatSession = async (formBody, otherId) => {
+    try {
+      const response = await API.post(`/chat/${otherId}`, formBody, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      return response.data
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to start chat Session !";
+    }
+  }
+
+  export const sendMessage = async (formBody, chatId) => {
+    try {
+      const response = await API.post(`/chat/${chatId}/message`, formBody, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      return response.data
+    } catch (error) {
+      throw error.response?.data?.message || "Failed to send Message !";
+    }
+  }
+
+  export const getAllChatSessions = async (yourUserId) => {
+    try {
+        const response = await API.get(`/chat/${yourUserId}`);
+        return response.data
+    } catch (error) {
+        throw error.response?.data?.message || "Failed to get all chat Sessions !";
+    }
+  }
+
+  export const getAllChatMsg = async (chatId, yourUserId) => {
+    try {
+        const response = await API.get(`/chat/${chatId}/${yourUserId}/message`);
+        return response.data
+    } catch (error) {
+        throw error.response?.data?.message || "Failed to get all chat Sessions !";
     }
   }
   

@@ -15,7 +15,6 @@ export default function product() {
             try {
                 const data = await getUserProduct(userId)
                 setUserAllProduct(data.sales)
-                // console.log(data.sales)
             } catch (error) {
                 console.log(error)
             }
@@ -30,7 +29,7 @@ export default function product() {
                     <ProductCard type='my-product' datas={userAllProduct} />
                 </ul>
             ) : (
-                <EmptyData/>
+                <EmptyData text="None post !"/>
             )}
         </>
     )

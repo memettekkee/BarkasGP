@@ -81,7 +81,7 @@ export default function ProductCard({ datas, type }) {
                             </div>
                             <div className="flex justify-between">
                                 <div className="flex items-center justify-center gap-1">
-                                    <img className="h-7 rounded-full object-cover" src={data.seller_info[0].seller_img} />
+                                    <img className="h-7 w-7 rounded-full object-cover" src={data.seller_info[0].seller_img} />
                                     <p className="font-light">{data.seller_info[0].fullname.length > 10
                                         ? data.seller_info[0].fullname.slice(0, 10) + '...'
                                         : data.seller_info[0].fullname}

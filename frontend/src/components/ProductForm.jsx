@@ -67,10 +67,10 @@ export default function ProductForm({ formItem }) {
             formBody.append("category", formdatas.category);
             formBody.append("user_id", formdatas.user_id);
 
-            if (newData.sale_img && typeof newData.sale_img !== "string") {
-                formBody.append("sale_img", newData.sale_img);
+            if (formData.sale_img && typeof formData.sale_img !== "string") {
+                formBody.append("sale_img", formdatas.sale_img);
             }
-
+            
             await postProduct(formBody);
             alert("Product berhasil ditambahkan!");
             window.location.href = "/dashboard/product";
@@ -90,7 +90,6 @@ export default function ProductForm({ formItem }) {
             const userId = localStorage.getItem("user_id");
             const updatedData = { ...formData, user_id: userId };
 
-            // FormData sama seperti saat create
             const formBody = new FormData();
             formBody.append("title", updatedData.title);
             formBody.append("location", updatedData.location);
@@ -99,8 +98,6 @@ export default function ProductForm({ formItem }) {
             formBody.append("category", updatedData.category);
             formBody.append("user_id", updatedData.user_id);
 
-            // Kalau sale_img masih string lama, berarti user tidak ganti foto
-            // Kalau sale_img sudah berbentuk File, berarti user upload baru
             if (updatedData.sale_img && typeof updatedData.sale_img !== "string") {
                 formBody.append("sale_img", updatedData.sale_img);
             }
@@ -128,6 +125,7 @@ export default function ProductForm({ formItem }) {
                             value={formData.title}
                             onChange={handleChange}
                             required
+                            autoComplete="off"
                         />
                     </div>
                     <div className="flex flex-col gap-1">
@@ -139,6 +137,7 @@ export default function ProductForm({ formItem }) {
                             value={formData.location}
                             onChange={handleChange}
                             required
+                            autoComplete="off"
                         />
                     </div>
                     <div className="flex flex-col gap-1">
@@ -150,6 +149,7 @@ export default function ProductForm({ formItem }) {
                             value={formData.price}
                             onChange={handleChange}
                             required
+                            autoComplete="off"
                         />
                     </div>
                     <div className="flex flex-col gap-1">
@@ -168,6 +168,7 @@ export default function ProductForm({ formItem }) {
                                         className="hidden"
                                         onChange={() => handleSelect(data.value)}
                                         required
+                                        autoComplete="off"
                                     />
                                     <span
                                         className={`px-2 py-1 border rounded-lg ${getButtonClass(data.value)}`}
@@ -188,6 +189,7 @@ export default function ProductForm({ formItem }) {
                             className="w-full border border-bgClr rounded-lg p-2 md:w-72"
                             value={formData.desc}
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="flex flex-col gap-1 mt-4">
@@ -197,6 +199,7 @@ export default function ProductForm({ formItem }) {
                             accept="image/*"
                             className="w-full border border-bgClr rounded-lg p-2 md:w-72"
                             onChange={handleImageChange}
+                            required
                         />
                     </div>
                     {imagePreview && (

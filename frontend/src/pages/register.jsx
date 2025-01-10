@@ -78,6 +78,7 @@ export default function register() {
                                         onChange={handleChange}
                                         placeholder="Username"
                                         required
+                                        autoComplete="off"
                                     />
                                 </div>
                                 <div className={inputClassname}>
@@ -90,6 +91,7 @@ export default function register() {
                                         onChange={handleChange}
                                         placeholder="Full Name"
                                         required
+                                        autoComplete="off"
                                     />
                                 </div>
                                 <div className={inputClassname}>
@@ -102,6 +104,7 @@ export default function register() {
                                         onChange={handleChange}
                                         placeholder="Email"
                                         required
+                                        autoComplete="off"
                                     />
                                 </div>
                                 <div className={inputClassname}>
@@ -113,7 +116,8 @@ export default function register() {
                                         value={formData.location}
                                         onChange={handleChange}
                                         placeholder="Location"
-                                        required />
+                                        required
+                                        autoComplete="off" />
                                 </div>
                                 <div className={inputClassname}>
                                     <FaLock />
@@ -124,7 +128,8 @@ export default function register() {
                                         onChange={handleChange}
                                         className="placeholder-[#D9D9D9] w-full bg-transparent focus:outline-none pl-3 md:pl-5"
                                         placeholder="Password"
-                                        required />
+                                        required
+                                        autoComplete="off" />
                                     <button type="button" onClick={togglePasswordVisibility}>
                                         {isShow ? <FaEye /> : <FaEyeSlash />}
                                     </button>
